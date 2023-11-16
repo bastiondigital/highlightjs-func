@@ -15,10 +15,6 @@ module.exports = function (hljs) {
       built_in: "main recv_internal recv_external run_ticktock",
     },
     contains: [
-      {
-        className: "symbol",
-        begin: /\+|-|:|&|=|{|}|;|_|,|\/|\*|%|\^|\[|\]|<|>|\||~|\(|\)/,
-      },
       hljs.C_NUMBER_MODE,
       {
         scope: "string",
@@ -29,7 +25,11 @@ module.exports = function (hljs) {
         "{-", // begin
         "-}" // end
       ),
-      hljs.COMMENT(";;", /[\n]/),
+      hljs.COMMENT(";;", '$'),
+	  {
+		className: "symbol",
+		begin: /\+|-|:|&|=|{|}|;|,|\/|\*|%|\^|\[|\]|<|>|\||~|\(|\)/
+	  },
     ],
   };
 };
