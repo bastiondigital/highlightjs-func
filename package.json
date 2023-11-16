@@ -1,6 +1,6 @@
 {
   "name": "@bakkenbaeck/highlightjs-func",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "highlight.js syntax definition for the TON FunC language",
   "main": "src/func.js",
   "scripts": {
