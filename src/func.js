@@ -5,7 +5,7 @@ Contributors: Garth Bjerk <garth@bakkenbaeck.no>,
 Description: A high-level language FunC is used to program smart contracts on TON.
 Website: https://docs.ton.org/develop/func/overview
 */
-export default function (hljs) {
+module.exports = function (hljs) {
   return {
     name: "FunC",
     keywords: {
@@ -15,10 +15,10 @@ export default function (hljs) {
       built_in: "main recv_internal recv_external run_ticktock",
     },
     contains: [
-	  {
-		className: "symbol",
-		begin: /\+|-|:|&|=|{|}|;|_|,|\/|\*|%|\^|\[|\]|<|>|\||~|\(|\)/
-	  },
+      {
+        className: "symbol",
+        begin: /\+|-|:|&|=|{|}|;|_|,|\/|\*|%|\^|\[|\]|<|>|\||~|\(|\)/,
+      },
       hljs.C_NUMBER_MODE,
       {
         scope: "string",
@@ -32,4 +32,4 @@ export default function (hljs) {
       hljs.COMMENT(";;", /[\n]/),
     ],
   };
-}
+};
