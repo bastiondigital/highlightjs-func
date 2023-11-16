@@ -1,6 +1,6 @@
 Highlight.js language definition for TON FunC
 
-# FunC - a langauge grammar for [highlight.js](https://highlightjs.org/)
+# FunC - a language grammar for [highlight.js](https://highlightjs.org/)
 
 ## Usage
 
