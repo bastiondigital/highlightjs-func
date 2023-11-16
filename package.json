@@ -1,10 +1,14 @@
 {
-  "name": "highlight.js-func",
+  "name": "@bakkenbaeck/highlightjs-func",
   "version": "1.0.0",
   "description": "highlight.js syntax definition for the TON FunC language",
   "main": "src/func.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bakkenbaeck/highlightjs-func"
   },
   "author": "gunnar@bakkenbaeck.no",
   "license": "ISC"
