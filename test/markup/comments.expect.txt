@@ -1,0 +1,36 @@
+<span class="hljs-comment">;;</span>
+<span class="hljs-comment">;;  TON NFT Item Smart Contract</span>
+<span class="hljs-comment">;;</span>
+
+<span class="hljs-comment">{-
+
+    NOTE that this tokens can be transferred within the same workchain.
+
+    This is suitable for most tokens, if you need tokens transferable between workchains there are two solutions:
+
+    1) use more expensive but universal function to calculate message forward fee for arbitrary destination (see `misc/forward-fee-calc.cs`)
+
+    2) use token holder proxies in target workchain (that way even &#x27;non-universal&#x27; token can be used from any workchain)
+
+-}</span>
+
+<span class="hljs-type">int</span> min_tons_for_storage<span class="hljs-symbol">(</span><span class="hljs-symbol">)</span> <span class="hljs-keyword">asm</span> <span class="hljs-string">&quot;50000000 PUSHINT&quot;</span><span class="hljs-symbol">;</span> <span class="hljs-comment">;; 0.05 TON</span>
+
+<span class="hljs-comment">;;</span>
+<span class="hljs-comment">;;  Storage</span>
+<span class="hljs-comment">;;</span>
+<span class="hljs-comment">;;  uint64 index</span>
+<span class="hljs-comment">;;  MsgAddressInt collection_address</span>
+<span class="hljs-comment">;;  MsgAddressInt owner_address</span>
+<span class="hljs-comment">;;  cell content</span>
+<span class="hljs-comment">;;</span>
+
+<span class="hljs-symbol">(</span><span class="hljs-type">int</span><span class="hljs-symbol">,</span> <span class="hljs-type">int</span><span class="hljs-symbol">,</span> <span class="hljs-type">slice</span><span class="hljs-symbol">,</span> <span class="hljs-type">slice</span><span class="hljs-symbol">,</span> <span class="hljs-type">cell</span><span class="hljs-symbol">)</span> load_data<span class="hljs-symbol">(</span><span class="hljs-symbol">)</span> <span class="hljs-symbol">{</span>
+    <span class="hljs-type">slice</span> ds <span class="hljs-symbol">=</span> get_data<span class="hljs-symbol">(</span><span class="hljs-symbol">)</span>.begin_parse<span class="hljs-symbol">(</span><span class="hljs-symbol">)</span><span class="hljs-symbol">;</span>
+    <span class="hljs-keyword">var</span> <span class="hljs-symbol">(</span>index<span class="hljs-symbol">,</span> collection_address<span class="hljs-symbol">)</span> <span class="hljs-symbol">=</span> <span class="hljs-symbol">(</span>ds<span class="hljs-symbol">~</span>load_uint<span class="hljs-symbol">(</span><span class="hljs-number">64</span><span class="hljs-symbol">)</span><span class="hljs-symbol">,</span> ds<span class="hljs-symbol">~</span>load_msg_addr<span class="hljs-symbol">(</span><span class="hljs-symbol">)</span><span class="hljs-symbol">)</span><span class="hljs-symbol">;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-symbol">(</span>ds.slice_bits<span class="hljs-symbol">(</span><span class="hljs-symbol">)</span> <span class="hljs-symbol">&gt;</span> <span class="hljs-number">0</span><span class="hljs-symbol">)</span> <span class="hljs-symbol">{</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-symbol">(</span><span class="hljs-number">-1</span><span class="hljs-symbol">,</span> index<span class="hljs-symbol">,</span> collection_address<span class="hljs-symbol">,</span> ds<span class="hljs-symbol">~</span>load_msg_addr<span class="hljs-symbol">(</span><span class="hljs-symbol">)</span><span class="hljs-symbol">,</span> ds<span class="hljs-symbol">~</span>load_ref<span class="hljs-symbol">(</span><span class="hljs-symbol">)</span><span class="hljs-symbol">)</span><span class="hljs-symbol">;</span>
+    <span class="hljs-symbol">}</span> else <span class="hljs-symbol">{</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-symbol">(</span><span class="hljs-number">0</span><span class="hljs-symbol">,</span> index<span class="hljs-symbol">,</span> collection_address<span class="hljs-symbol">,</span> <span class="hljs-keyword">null</span><span class="hljs-symbol">(</span><span class="hljs-symbol">)</span><span class="hljs-symbol">,</span> <span class="hljs-keyword">null</span><span class="hljs-symbol">(</span><span class="hljs-symbol">)</span><span class="hljs-symbol">)</span><span class="hljs-symbol">;</span> <span class="hljs-comment">;; nft not initialized yet</span>
+    <span class="hljs-symbol">}</span>
+<span class="hljs-symbol">}</span>
