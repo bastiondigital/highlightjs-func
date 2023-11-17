@@ -25,11 +25,7 @@ export const CodeComponent: React.FC<{content: string}> = ({content}) => {
     return
     (
         <pre>
-            <code
-                dangerouslySetInnerHTML={{
-                __html: hljs.highlight(content, { language: "fc" }).value
-                }}
-            />
+            <code dangerouslySetInnerHTML={{__html: hljs.highlight(content, { language: "fc" }).value}} />
         </pre>
     )
 };
